@@ -1,11 +1,67 @@
-package Amon2::Plugin::Web::MobileEncode;
+package Amon2::Plugin::Web::MobileEncoding;
 use 5.008005;
 use strict;
 use warnings;
 
 our $VERSION = "0.01";
 
+our $INTERNAL_CODE_SET_GOOGLE = "google-code";
+our $INTERNAL_CODE_SET_CARRIER_MIXED = "carrier-mixed";
+our $INTERNAL_CODE_SET = $INTERNAL_CODE_SET_GOOGLE;
 
+use Carp qw(croak);
+
+sub init {
+    my ($class, $c, $conf) = @_;
+
+    Amon2::Util::add_method($c, 'encoding' => sub {
+        my $encode_jp_mob_encoding =  detect_encoding(shift->mobile_agent);
+        if ($INTERNAL_CODE_POINT == $CODE_POINT_GOOGLE) {
+            encode_jp_mob_to_encode_jp_emoji($encode_jp_mob_encoding);
+        }
+        elsif ($INTERNAL_CODE_POINT == $CODE_POINT_CARRIER_MIXED) {
+            if ( $encode_jp_mob_encoding == "utf8" ) {
+                return "x-utf8-e4u-mobile-unicode"
+            }
+            else {
+                return $encode_jp_mob_encoding;
+            }
+        }
+    });
+    Amon2::Util::add_method($c, 'html_content_type' => sub {
+        my $ma = shift->mobile_agent;
+        my $ct  = $ma->is_docomo ? 'application/xhtml+xml;charset=' : 'text/html;charset=';
+        $ct .= $ma->can_display_utf8 ? 'utf-8' : 'Shift_JIS';
+        $ct;
+    });
+}
+
+sub encode_jp_mob_to_encode_jp_emoji {
+    my $encoding = shift;
+    if ($encoding =~ /x-(sjis|utf8)-(docomo|kddi-auto|softbank)/ ) {
+        return "x-$1-e4u-$2";
+    } elsif ($encoding == "utf-8") {
+        return "x-utf8-e4u-unicode";
+    }
+    else {
+        return $encoding;
+    }
+}
+
+sub detect_encoding {
+    my $agent = shift;
+    if ($agent->is_docomo) {
+        return $agent->xhtml_compliant ? 'x-utf8-docomo' : 'x-sjis-docomo';
+    } elsif ($agent->is_ezweb) {
+        return 'x-sjis-kddi-auto';
+    } elsif ($agent->is_vodafone) {
+        return $agent->is_type_3gc ? 'x-utf8-softbank' : 'x-sjis-softbank';
+    } elsif ($agent->is_airh_phone) {
+        return 'x-sjis-airh';
+    } else { # $agent->is_non_mobile には utf-8 とします
+        return 'utf8';
+    }
+}
 
 1;
 __END__
@@ -18,7 +74,7 @@ Amon2::Plugin::Web::MobileEncode - It's new $module
 
 =head1 SYNOPSIS
 
-    use Amon2::Plugin::Web::MobileEncode;
+    use Amon2::Plugin::Web::MobileEncoding;
 
 =head1 DESCRIPTION
 
