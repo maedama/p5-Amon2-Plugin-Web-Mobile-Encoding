@@ -5,9 +5,9 @@ use warnings;
 
 our $VERSION = "0.01";
 
-our $INTERNAL_CODE_SET_GOOGLE = "google-code";
-our $INTERNAL_CODE_SET_CARRIER_MIXED = "carrier-mixed";
-our $INTERNAL_CODE_SET = $INTERNAL_CODE_SET_GOOGLE;
+our $CODE_POINT_CARRIER_MIXED = "carrier-mixed";
+our $CODE_POINT_GOOGLE = "google-code";
+our $USED_CODE_POINT = $CODE_POINT_GOOGLE;
 
 use Carp qw(croak);
 
@@ -16,10 +16,10 @@ sub init {
 
     Amon2::Util::add_method($c, 'encoding' => sub {
         my $encode_jp_mob_encoding =  detect_encoding(shift->mobile_agent);
-        if ($INTERNAL_CODE_POINT == $CODE_POINT_GOOGLE) {
+        if ($USED_CODE_POINT == $CODE_POINT_GOOGLE) {
             encode_jp_mob_to_encode_jp_emoji($encode_jp_mob_encoding);
         }
-        elsif ($INTERNAL_CODE_POINT == $CODE_POINT_CARRIER_MIXED) {
+        elsif ($USED_CODE_POINT == $CODE_POINT_CARRIER_MIXED) {
             if ( $encode_jp_mob_encoding == "utf8" ) {
                 return "x-utf8-e4u-mobile-unicode"
             }
