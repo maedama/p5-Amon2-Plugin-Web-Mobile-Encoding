@@ -20,8 +20,8 @@ sub init {
             encode_jp_mob_to_encode_jp_emoji($encode_jp_mob_encoding);
         }
         elsif ($USED_CODE_POINT == $CODE_POINT_CARRIER_MIXED) {
-            if ( $encode_jp_mob_encoding == "utf8" ) {
-                return "x-utf8-e4u-mobile-unicode"
+            if ( $encode_jp_mob_encoding eq "utf8" ) {
+                return "x-utf8-e4u-mobile-unicode";
             }
             else {
                 return $encode_jp_mob_encoding;
@@ -46,7 +46,7 @@ sub encode_jp_mob_to_encode_jp_emoji {
     my $encoding = shift;
     if ($encoding =~ /x-(sjis|utf8)-(docomo|kddi-auto|softbank)/ ) {
         return "x-$1-e4u-$2";
-    } elsif ($encoding == "utf-8") {
+    } elsif ($encoding eq "utf8") {
         return "x-utf8-e4u-unicode";
     }
     else {
