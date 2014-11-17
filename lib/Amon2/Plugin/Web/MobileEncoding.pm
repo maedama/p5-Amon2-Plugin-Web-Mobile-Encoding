@@ -34,6 +34,12 @@ sub init {
         $ct .= $ma->can_display_utf8 ? 'utf-8' : 'Shift_JIS';
         $ct;
     });
+    Amon2::Util::add_method($c, 'replace_4byte_utf8_char' => sub {
+        my ($self, $str, $replaced) = @_;
+        $replaced ||= "\x{3013}";
+        $str =~s/[\x{10000}-\x{3ffff}\x{40000}-\x{fffff}\x{100000}-\x{10ffff}]/$replaced/g;
+        return $str;
+    });
 }
 
 sub encode_jp_mob_to_encode_jp_emoji {
