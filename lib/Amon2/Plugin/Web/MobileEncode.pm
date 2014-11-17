@@ -70,7 +70,7 @@ __END__
 
 =head1 NAME
 
-Amon2::Plugin::Web::MobileEncode - It's new $module
+Amon2::Plugin::Web::MobileEncoding - It's new $module
 
 =head1 SYNOPSIS
 
@@ -78,7 +78,7 @@ Amon2::Plugin::Web::MobileEncode - It's new $module
 
 =head1 DESCRIPTION
 
-Amon2::Plugin::Web::MobileEncode is ...
+Amon2::Plugin::Web::MobileEncoding is ...
 
 =head1 LICENSE
 

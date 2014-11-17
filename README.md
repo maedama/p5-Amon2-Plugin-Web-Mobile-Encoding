@@ -1,14 +1,14 @@
 # NAME
 
-Amon2::Plugin::Web::MobileEncode - It's new $module
+Amon2::Plugin::Web::MobileEncoding - It's new $module
 
 # SYNOPSIS
 
-    use Amon2::Plugin::Web::MobileEncode;
+    use Amon2::Plugin::Web::MobileEncoding;
 
 # DESCRIPTION
 
-Amon2::Plugin::Web::MobileEncode is ...
+Amon2::Plugin::Web::MobileEncoding is ...
 
 # LICENSE
 

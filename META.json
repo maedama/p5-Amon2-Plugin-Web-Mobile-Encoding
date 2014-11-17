@@ -12,7 +12,7 @@
       "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
       "version" : "2"
    },
-   "name" : "Amon2-Plugin-Web-MobileEncode",
+   "name" : "Amon2-Plugin-Web-MobileEncoding",
    "no_index" : {
       "directory" : [
          "t",
