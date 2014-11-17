@@ -2,6 +2,8 @@ package Amon2::Plugin::Web::MobileEncoding;
 use 5.008005;
 use strict;
 use warnings;
+use Amon2::Util;
+use HTTP::MobileAgent::Plugin::Charset;
 
 our $VERSION = "0.01";
 
