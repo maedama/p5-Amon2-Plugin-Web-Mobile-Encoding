@@ -9,7 +9,7 @@ our $VERSION = "0.01";
 
 our $CODE_POINT_CARRIER_MIXED = "carrier-mixed";
 our $CODE_POINT_GOOGLE = "google-code";
-our $USED_CODE_POINT = $CODE_POINT_GOOGLE;
+our $CODE_POINT = $CODE_POINT_GOOGLE;
 
 use Carp qw(croak);
 
