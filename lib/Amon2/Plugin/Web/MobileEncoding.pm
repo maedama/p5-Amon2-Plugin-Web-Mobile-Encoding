@@ -18,10 +18,10 @@ sub init {
 
     Amon2::Util::add_method($c, 'encoding' => sub {
         my $encode_jp_mob_encoding =  detect_encoding(shift->mobile_agent);
-        if ($USED_CODE_POINT eq $CODE_POINT_GOOGLE) {
+        if ($CODE_POINT eq $CODE_POINT_GOOGLE) {
             encode_jp_mob_to_encode_jp_emoji($encode_jp_mob_encoding);
         }
-        elsif ($USED_CODE_POINT eq $CODE_POINT_CARRIER_MIXED) {
+        elsif ($CODE_POINT eq $CODE_POINT_CARRIER_MIXED) {
             if ( $encode_jp_mob_encoding eq "utf8" ) {
                 return "x-utf8-e4u-mobile-unicode";
             }
